@@ -33,6 +33,22 @@ open class FPNCountryListViewController: UITableViewController, UISearchResultsU
 		searchController.searchResultsUpdater = self
 		searchController.delegate = self
 
+        UISearchBar.appearance().tintColor = UIColor(named: "Button")
+        if let whiteColor = UIColor(named: "TestColor") {
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedString.Key.foregroundColor: whiteColor])
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = whiteColor
+        }
+        
+        let cancelButtonAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UIBarButtonItem.appearance().setTitleTextAttributes(cancelButtonAttributes , for: .normal)
+        
+        let textField = searchController.searchBar.value(forKey: "searchField") as! UITextField
+        let glassIconView = textField.leftView as! UIImageView
+        glassIconView.image = glassIconView.image?.withRenderingMode(.alwaysTemplate)
+        glassIconView.tintColor = UIColor.white
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
 		if #available(iOS 9.1, *) {
 			searchController.obscuresBackgroundDuringPresentation = false
 		} else {
@@ -42,6 +58,10 @@ open class FPNCountryListViewController: UITableViewController, UISearchResultsU
 		if #available(iOS 11.0, *) {
 			navigationItem.searchController = searchController
 			navigationItem.hidesSearchBarWhenScrolling = false
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                navigationItem.titleView = searchController.searchBar
+                navigationItem.titleView?.bounds = CGRect(x: 5, y: -5, width: 20, height: 0)
+            }
 		} else {
 			searchController.dimsBackgroundDuringPresentation = false
 			searchController.hidesNavigationBarDuringPresentation = true
