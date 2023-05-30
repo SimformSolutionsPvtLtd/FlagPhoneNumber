@@ -60,7 +60,7 @@ open class FPNCountryListViewController: UITableViewController, UISearchResultsU
 			navigationItem.hidesSearchBarWhenScrolling = false
             if UIDevice.current.userInterfaceIdiom == .pad {
                 navigationItem.titleView = searchController.searchBar
-                navigationItem.titleView?.bounds = CGRect(x: 5, y: -5, width: 20, height: 0)
+                navigationItem.titleView?.bounds = CGRect(x: 3, y: -5, width: 20, height: 0)
             }
 		} else {
 			searchController.dimsBackgroundDuringPresentation = false
